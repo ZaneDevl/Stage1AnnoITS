@@ -1,0 +1,9 @@
+<div *ngIf="fattura">
+    <h2>Dettagli della Fattura</h2>
+    <p>Numero Fattura: {{ fattura.testata.numfac }}</p>
+    <p>Data di Consegna: {{ fattura.testata.fentrega | date }}</p>
+    <p>Base Imposta 1: {{ fattura.testata.baseimp1 }}</p>
+    <p>Somma Netta: {{ fattura.testata.sumnetos }}</p>
+    <p>Sconto: {{ fattura.testata.descuen }}</p>
+  </div>
+  

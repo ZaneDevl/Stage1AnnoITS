@@ -1,0 +1,13 @@
+<div>
+    <form (ngSubmit)="handleSubmit()">
+        <input
+        type="text"
+        [(ngModel)]="fatturaNum"
+        name="fatturaNum"
+        placeholder="Numero di fattura"
+        required
+        />
+        <button type="submit">Cerca</button>
+    </form>
+    <p *ngIf="error">{{error}}</p>
+</div>

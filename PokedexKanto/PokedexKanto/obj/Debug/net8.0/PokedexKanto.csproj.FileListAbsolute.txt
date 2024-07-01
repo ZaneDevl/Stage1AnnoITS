@@ -1,0 +1,14 @@
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\bin\Debug\net8.0\PokedexKanto.exe
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\bin\Debug\net8.0\PokedexKanto.deps.json
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\bin\Debug\net8.0\PokedexKanto.runtimeconfig.json
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\bin\Debug\net8.0\PokedexKanto.dll
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\bin\Debug\net8.0\PokedexKanto.pdb
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\PokedexKanto.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\PokedexKanto.AssemblyInfoInputs.cache
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\PokedexKanto.AssemblyInfo.cs
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\PokedexKanto.csproj.CoreCompileInputs.cache
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\PokedexKanto.dll
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\refint\PokedexKanto.dll
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\PokedexKanto.pdb
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\PokedexKanto.genruntimeconfig.cache
+C:\Users\matteo\source\repos\PokedexKanto\PokedexKanto\obj\Debug\net8.0\ref\PokedexKanto.dll
