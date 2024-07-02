@@ -30,5 +30,5 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
-    <button mat-raised-button color="primary">Genera file di fatturazione</button>
+    <button mat-raised-button color="primary" (click)="onGenerateFileFatturazione()">Genera file di fatturazione</button>
 </mat-card>

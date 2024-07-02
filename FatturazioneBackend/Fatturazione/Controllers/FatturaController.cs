@@ -497,8 +497,4 @@ namespace Fatturazione.Controllers
     }
 }
 
-    public class FatturaDTO
-    {
-        public BaDocumeM005 Testata { get; set; }
-        public List<BaDocume005> Righe { get; set; }
-    }
+  

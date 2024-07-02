@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '/Users/matteo/source/repos/ClientApp/src/environment';
@@ -17,6 +17,13 @@ export class FatturaService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  generaFileFatturazione(donumdoc: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/fatturazione/GeneraFileFatturazione`, { params: new HttpParams().set('donumdoc', donumdoc) })
+    .pipe(
+      catchError(this.handleError)
+    );
   }
 
   private handleError(error: any): Observable<never> {

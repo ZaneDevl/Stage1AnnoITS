@@ -8,6 +8,7 @@ import { FatturaGridModule } from './components/fattura-grid/fattura-grid.module
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { FatturaDataService } from './services/fattura-data.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,10 @@ export class AppComponent {
   notification: string = '';
   isLoading: boolean = false;
 
-  constructor(private fatturaService: FatturaService) {}
+  constructor(
+    private fatturaService: FatturaService,
+    private fatturaDataService: FatturaDataService
+  ) {}
 
   fetchFattura() {
     if (!this.donumdoc.trim()) {
@@ -31,12 +35,17 @@ export class AppComponent {
       return;
     }
     
+    this.fatturaDataService.setDonumdoc(this.donumdoc);
+    
     this.isLoading=true;
+    this.notification='';
+    this.error = '';
+
     this.fatturaService.getFattura(this.donumdoc).subscribe(
       (data) => {
         this.isLoading = false;
         if (!data) {
-          this,this.notification = 'Fattura non trovata';
+          this.notification = 'Fattura non trovata';
           this.clearData();
         } else {
           this.fattura = data;
@@ -50,10 +59,14 @@ export class AppComponent {
         this.clearData();
         console.error('Errore:', err);
       }
-    )
+    );
   }
+  
   generateInvoiceFile() {
-    console.log("Generazione del file di fatturazione");
+    if (!this.donumdoc.trim()) {
+      this.notification = 'Inserisci un numero di fattura valido';
+      return;
+    }
   }
 
   clearData() {
@@ -61,3 +74,5 @@ export class AppComponent {
     this.isLoading = false;
   }
 }
+
+
