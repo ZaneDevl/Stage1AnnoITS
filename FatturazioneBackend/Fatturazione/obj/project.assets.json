@@ -4727,11 +4727,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "Z:\\Desktop\\ProgettoFatturazione\\FatturazioneBackend\\Fatturazione\\Fatturazione.csproj",
+      "projectUniqueName": "C:\\Users\\matteo\\source\\repos\\Fatturazione\\Fatturazione\\Fatturazione.csproj",
       "projectName": "Fatturazione",
-      "projectPath": "Z:\\Desktop\\ProgettoFatturazione\\FatturazioneBackend\\Fatturazione\\Fatturazione.csproj",
+      "projectPath": "C:\\Users\\matteo\\source\\repos\\Fatturazione\\Fatturazione\\Fatturazione.csproj",
       "packagesPath": "C:\\Users\\matteo\\.nuget\\packages\\",
-      "outputPath": "Z:\\Desktop\\ProgettoFatturazione\\FatturazioneBackend\\Fatturazione\\obj\\",
+      "outputPath": "C:\\Users\\matteo\\source\\repos\\Fatturazione\\Fatturazione\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

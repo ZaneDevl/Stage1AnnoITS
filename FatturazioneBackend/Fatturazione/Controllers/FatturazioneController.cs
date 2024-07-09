@@ -6,6 +6,9 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Fatturazione.Controllers;
+using Fatturazione.Exceptions;
+using System.Linq.Expressions;
+
 
 namespace Fatturazione.Controllers
 {
@@ -25,6 +28,7 @@ namespace Fatturazione.Controllers
             _environment = environment;
         }
 
+
         [HttpGet("GeneraFileFatturazione")]
         public async Task<IActionResult> GeneraFileFatturazione([FromQuery] string donumdoc)
         {
@@ -32,23 +36,26 @@ namespace Fatturazione.Controllers
             {
                 if (string.IsNullOrEmpty(donumdoc))
                 {
-                    return BadRequest("Il numero di fattura non può essere vuoto");  
+                    return BadRequest("Il numero di fattura non può essere vuoto");
                 }
+
 
                 var donumdocTrimmed = donumdoc.Trim().ToUpper();
                 var sanitizedDonumdoc = donumdocTrimmed.Replace("/", "_").Replace("\\", "_");
+
 
                 var fatturaLogger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<FatturaController>();
                 var fatturaController = new FatturaController(_context, fatturaLogger);
 
 
                 var testataFileResult = await fatturaController.GeneraTestata(donumdocTrimmed) as FileContentResult;
-                if (testataFileResult == null || testataFileResult.FileContents == null) 
+                if (testataFileResult == null || testataFileResult.FileContents == null)
                 {
                     return StatusCode(500, "Errore nella generazione del file di testata");
                 }
                 var testataFileBytes = testataFileResult.FileContents;
                 var testataFileName = $"TestataFattura_{sanitizedDonumdoc}.csv";
+
 
                 var righeFileResult = await fatturaController.GeneraRighe(donumdocTrimmed) as FileContentResult;
                 if (righeFileResult == null || righeFileResult.FileContents == null)
@@ -58,29 +65,35 @@ namespace Fatturazione.Controllers
                 var righeFileBytes = righeFileResult?.FileContents;
                 var righeFileName = $"RigheFattura_{sanitizedDonumdoc}.csv";
 
+
                 var targetDirectory = Path.Combine(_environment.ContentRootPath, "FatturazioneFiles");
                 _logger.LogInformation($"Percorso directory di destinazione: {targetDirectory}");
 
                 if (!Directory.Exists(targetDirectory))
                 {
-                    try 
+                    try
                     {
                         _logger.LogInformation($"Directory non trovata, creazione della directory: {targetDirectory}");
                         Directory.CreateDirectory(targetDirectory);
                     }
-                    catch (Exception ex) 
+                    catch (Exception ex)
                     {
                         _logger.LogError(ex, $"Errore durante la creazione della directory {targetDirectory}");
                         return StatusCode(500, "Errore interno del server durante la creazione della directory di destinazione");
                     }
-                }    
-
+                }
 
                 var testataFilePath = Path.Combine(targetDirectory, testataFileName);
                 var righeFilePath = Path.Combine(targetDirectory, righeFileName);
 
                 _logger.LogInformation($"Percorso file di testata: {testataFilePath}");
                 _logger.LogInformation($"Percorso file di righe: {righeFilePath}");
+
+                if (System.IO.File.Exists(testataFilePath) || System.IO.File.Exists(righeFilePath))
+                {
+                    throw new FileAlreadyExistsException("File già presente, impossibile generare un file duplicato.");
+                }
+
 
                 try
                 {
@@ -94,6 +107,11 @@ namespace Fatturazione.Controllers
                 }
 
                 return Ok(new { TestataFilePath = testataFilePath, RigheFilePath = righeFilePath });
+            }
+            catch (FileAlreadyExistsException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return Conflict(new { Message = ex.Message });
             }
             catch (Exception ex)
             {

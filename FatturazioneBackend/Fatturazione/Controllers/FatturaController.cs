@@ -35,7 +35,7 @@ namespace Fatturazione.Controllers
         {
             try
             {
-                _logger.LogInformation($"Ricevuta richieta per il numero fattura: {donumdoc}", donumdoc);
+                _logger.LogInformation($"Ricevuta richiesta per il numero fattura: {donumdoc}", donumdoc);
 
                 var testataFattura = await _context.BaDocumeM005s
                     .FirstOrDefaultAsync(t => t.Donumdoc == donumdoc
@@ -486,7 +486,7 @@ namespace Fatturazione.Controllers
                 }
 
                 var fileBytes = Encoding.UTF8.GetBytes(csv.ToString());
-                return File(fileBytes, "text/csv", $"RighFattura_{donumdocTrimmed}.csv");
+                return File(fileBytes, "text/csv", $"RigheFattura_{donumdocTrimmed}.csv");
             }
             catch (Exception ex)
             {
@@ -496,5 +496,3 @@ namespace Fatturazione.Controllers
         }
     }
 }
-
-  
