@@ -6,18 +6,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FatturaGridModule } from '../components/fattura-grid/fattura-grid.module';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from '../app.component';
 import { FatturaService } from '../services/fattura.service';
-import { ErrorMessageComponent } from '../components/error-message/error-message.component';
-import { FatturaGridComponent } from '../components/fattura-grid/fattura-grid.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [AppComponent,
-    ErrorMessageComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     CommonModule,

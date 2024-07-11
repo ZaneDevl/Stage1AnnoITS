@@ -8,7 +8,7 @@ import { environment } from '/Users/matteo/source/repos/ClientApp/src/environmen
   providedIn: 'root'
 })
 export class FatturaService {
-  private apiUrl = environment.apiUrl; //'http://localhost:5155/api';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

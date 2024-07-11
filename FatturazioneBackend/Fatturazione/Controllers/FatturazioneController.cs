@@ -54,7 +54,7 @@ namespace Fatturazione.Controllers
                     return StatusCode(500, "Errore nella generazione del file di testata");
                 }
                 var testataFileBytes = testataFileResult.FileContents;
-                var testataFileName = $"TestataFattura_{sanitizedDonumdoc}.csv";
+                var testataFileName = $"CABFAC.txt";
 
 
                 var righeFileResult = await fatturaController.GeneraRighe(donumdocTrimmed) as FileContentResult;
@@ -63,7 +63,7 @@ namespace Fatturazione.Controllers
                     return StatusCode(500, "Errore nella generazione del file di riga");
                 }
                 var righeFileBytes = righeFileResult?.FileContents;
-                var righeFileName = $"RigheFattura_{sanitizedDonumdoc}.csv";
+                var righeFileName = $"LINFAC.txt";
 
 
                 var targetDirectory = Path.Combine(_environment.ContentRootPath, "FatturazioneFiles");

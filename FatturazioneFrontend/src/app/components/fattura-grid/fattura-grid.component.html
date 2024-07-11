@@ -31,4 +31,9 @@
         </table>
     </div>
     <button mat-raised-button color="primary" (click)="onGenerateFileFatturazione()">Genera file di fatturazione</button>
+
+    <div *ngIf="testataFilePath && righeFilePath">
+        <p>Generato il file di testata in: {{ testataFilePath }} </p>
+        <p>Generato il file di riga in: {{ righeFilePath }} </p>
+    </div>
 </mat-card>

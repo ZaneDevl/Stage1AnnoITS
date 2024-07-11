@@ -113,218 +113,272 @@ namespace Fatturazione.Controllers
                 var donumdocTrimmed = donumdoc.Trim().ToUpper();
                 _logger.LogInformation($"Valori usati per la query: Dotipdoc = 'FAT', Doflcicl = 'VEN', Docodcau = 'FATVENINTR', Donumdoc = '{donumdocTrimmed}'");
 
-                var query = await _context.BaDocumeM005s
-                    .Where(doc => doc.Dotipdoc == "FAT" && doc.Doflcicl == "VEN" && doc.Docodcau == "FATVENINTR" && doc.Donumdoc.ToUpper()==donumdocTrimmed)
-                    .Select(doc => new
-                    {
-                        doc.Doserial,
-                        Numfac = doc.Donumdoc,
-                        Vendedor = "8057506459995",
-                        Emisor = "8057506459995",
-                        Cobrador = "4311501086605",
-                        Comprado = "4311501086605",
-                        Depto = "",
-                        Receptor = "4311501086605",
-                        Cliente = "4311501086605",
-                        Pagador = "",
-                        Pedido = "#ORDINECLIENTE#",
-                        Fecha = doc.Dodatdoc,
-                        Nodo = "380",
-                        Funcion = "9",
-                        Rsocial = "",
-                        Calle = "",
-                        Ciudad = "",
-                        Cp = "",
-                        Nif = "DE811135425",
-                        Razon = "",
-                        Albaran = "#DDTNUM#",
-                        Contrato = "",
-                        Nfacsus = "",
-                        Fpag = "",
-                        Divisa = "EUR",
-                        Sumbruto = 0.0,
-                        Sumnetos = _context.BaDocume005s.Where(ri => ri.Doserial == doc.Doserial).Sum(ri => (double?)ri.Doimplor) ?? 0.0,
-                        Cargos = 0.0,
-                        Descuen = _context.BaDocume005s.Where(ri => ri.Doserial == doc.Doserial).Sum(ri => (double?)ri.Doscorig) ?? 0.0,
-                        Baseimp1 = (double?)doc.Dototimp ?? 0.0,
-                        Tipoimp1 = "VAT",
-                        Tasaimp1 = 0.0,
-                        Impimp1 = 0.0,
-                        Baseimp2 = "",
-                        Tipoimp2 = "",
-                        Tasaimp2 = "",
-                        Impimp2 = "",
-                        Baseimp3 = "",
-                        Tipoimp3 = "",
-                        Tasaimp3 = "",
-                        Impimp3 = "",
-                        Baseimp4 = "",
-                        Tipoimp4 = "",
-                        Tasaimp4 = "",
-                        Impimp4 = "",
-                        Baseimp5 = "",
-                        Tipoimp5 = "",
-                        Tasaimp5 = "",
-                        Impimp5 = "",
-                        Baseimp6 = "",
-                        Tipoimp6 = "",
-                        Tasaimp6 = "",
-                        Impimp6 = "",
-                        Basimpfa = 0.0,
-                        Totimp = 0.0,
-                        Total = (double?)doc.Dototimp ?? 0.0,
-                        Vto1 = "",
-                        Impvto1 = "",
-                        Vto2 = "",
-                        Impvto2 = "",
-                        Vto3 = "",
-                        Impvto3 = "",
-                        Tpverde = "",
-                        Calif1 = "",
-                        Secuen1 = "",
-                        Tipo1 = "",
-                        Porcen1 = "",
-                        Impdes1 = "",
-                        Calif2 = "",
-                        Secuen2 = "",
-                        Tipo2 = "",
-                        Porcen2 = "",
-                        Impdes2 = "",
-                        Calif3 = "",
-                        Secuen3 = "",
-                        Tipo3 = "",
-                        Porcen3 = "",
-                        Impdes3 = "",
-                        Calif4 = "",
-                        Secuen4 = "",
-                        Tipo4 = "",
-                        Porcen4 = "",
-                        Impdes4 = "",
-                        Calif5 = "",
-                        Secuen5 = "",
-                        Tipo5 = "",
-                        Porcen5 = "",
-                        Impdes5 = "",
-                        Ersocial = "",
-                        Ecalle = "",
-                        Epoblac = "",
-                        Ecp = "",
-                        Enif = "IT04418490241",
-                        Ermerca = "",
-                        Notac = "",
-                        Numrel = "",
-                        Recogida = "",
-                        Destino = "",
-                        Fechaefe = "#DATASPEDIZIONE#",
-                        Nconfrec = "",
-                        Nidenticket = "",
-                        Contacto = "",
-                        Telefono = "",
-                        Fax = "",
-                        Codprov = "",
-                        Fecalb = "",
-                        Normexen1 = "",
-                        Normexen2 = "",
-                        Normexen3 = "",
-                        Normexen4 = "",
-                        Normexen5 = "",
-                        Normexen6 = "",
-                        Fechadoc = "",
-                        Refpago = "",
-                        Origen = "",
-                        Nifii = "",
-                        Nifpe = "",
-                        Nifiv = "",
-                        Nifpr = "",
-                        Nifsu = "",
-                        Nummovi = "",
-                        Numincor = "",
-                        Impincor = "",
-                        Fentmer = "",
-                        Femimen = "",
-                        Nummen = "",
-                        Percfac = "",
-                        Fpedido = "",
-                        Codaprob = "",
-                        Numdevol = "",
-                        Fnumdevol = "",
-                        Notifdevol = "",
-                        Fnotifdevol = "",
-                        Sedesoc = "",
-                        Buque = "",
-                        Fembarque = "",
-                        Forwarder = "",
-                        Rrsocial = "",
-                        Rcalle = "",
-                        Rciudad = "",
-                        Rcp = "",
-                        Agenenif = "",
-                        Ecapsocial = "",
-                        Lugcarga = "",
-                        Fcarga = "",
-                        Lugdescarga = "",
-                        Matricula = "",
-                        Fentrega = "",
-                        Numven = "",
-                        Cpext = "",
-                        Ecpext = "",
-                        Fecfacsus = "",
-                        Epais = "",
-                        Relvto = "",
-                        Diasvto = "",
-                        Porcvto = "",
-                        Tipoimpdes1 = "",
-                        Tasaimpdes1 = "",
-                        Impimpdes1 = "",
-                        Baseimpdes1 = "",
-                        Tipoimpdes2 = "",
-                        Tasaimpdes2 = "",
-                        Impimpdes2 = "",
-                        Baseimpdes2 = "",
-                        Tipoimpdes3 = "",
-                        Tasaimpdes3 = "",
-                        Impimpdes3 = "",
-                        Baseimpdes3 = "",
-                        Tipoimpdes4 = "",
-                        Tasaimpdes4 = "",
-                        Impimpdes4 = "",
-                        Baseimpdes4 = "",
-                        Tipoimpdes5 = "",
-                        Tasaimpdes5 = "",
-                        Impimpdes5 = "",
-                        Baseimpdes5 = "",
-                        Paisby = "",
-                        Regcritcaja = "",
-                        Taxcat = "",
-                        Taxcat1 = "",
-                        Taxcat2 = "",
-                        Taxcat3 = "",
-                        Taxcat4 = "",
-                        Taxcat5 = "",
-                        Taxcat6 = "",
-                        Autorizdev = "",
-                        Numpedvend = "",
-                        Fectax = "",
-                        Prodproducto = "",
-                        Regprodproducto = ""
-                    })
+                var fattura = await _context.BaDocumeM005s
+          .Where(doc => doc.Dotipdoc == "FAT" && doc.Doflcicl == "VEN" && doc.Docodcau == "FATVENINTR" && doc.Donumdoc.ToUpper() == donumdocTrimmed)
+          .Select(doc => new
+          {
+              doc.Doserial,
+              doc.Donumdoc,
+              doc.Dodatdoc,
+              Sumnetos = _context.BaDocume005s.Where(ri => ri.Doserial == doc.Doserial).Sum(ri => (double?)ri.Doimplor) ?? 0.0,
+              Descuen = _context.BaDocume005s.Where(ri => ri.Doserial == doc.Doserial).Sum(ri => (double?)ri.Doscorig) ?? 0.0,
+              doc.Dototimp
+          })
+          .FirstOrDefaultAsync();
+
+                if (fattura == null)
+                {
+                    return NotFound("Fattura non trovata");
+                }
+
+                var doserPreDDT = await _context.BaDocume005s
+                    .Where(riga => riga.Doserial == fattura.Doserial && riga.Doflgart == 1)
+                    .MaxAsync(riga => (string?)riga.Doserpre);
+
+                if (doserPreDDT == null)
+                {
+                    return NotFound("Chiave della testata DDT non trovata");
+                }
+
+                var ddt = await _context.BaDocumeM005s
+                    .Where(doc => doc.Doserial == doserPreDDT)
+                    .Select(doc => new {doc.Doserial, doc.Dotipdoc, doc.Donumreg, doc.Donumdoc, doc.Dodatreg})
                     .FirstOrDefaultAsync();
 
-                if (query == null)
+                if (ddt == null)
+                {
+                    return NotFound("TestataDDT non trovata");
+                }
+
+                var doserPreOrd = await _context.BaDocume005s
+                    .Where(riga => riga.Doserial == ddt.Doserial)
+                    .MaxAsync(riga => (string?)riga.Doserpre);
+
+                if (doserPreOrd == null)
+                {
+                    return NotFound("Chiave della testata ORD non trovata");
+                }
+
+                var ordineCliente = await _context.BaDocumeM005s
+                    .Where(doc => doc.Doserial == doserPreOrd)
+                    .Select(doc => new {doc.Doserial, doc.Dotipdoc, doc.Donumreg, doc.Donumdoc})
+                    .FirstOrDefaultAsync();
+
+                if (ordineCliente == null)
+                {
+                    return NotFound("Testata ORDINE CLIENTE non trovata");
+                }
+
+                var queryResult = new
+                {
+                    Doserial = fattura.Doserial,
+                    Numfac = fattura.Donumdoc,
+                    Vendedor = "8057506459995",
+                    Emisor = "8057506459995",
+                    Cobrador = "4311501086605",
+                    Comprado = "4311501086605",
+                    Depto = "",
+                    Receptor = "4311501086605",
+                    Cliente = "4311501086605",
+                    Pagador = "",
+                    Pedido = ordineCliente.Donumreg,
+                    Fecha = fattura.Dodatdoc,
+                    Nodo = "380",
+                    Funcion = "9",
+                    Rsocial = "",
+                    Calle = "",
+                    Ciudad = "",
+                    Cp = "",
+                    Nif = "DE811135425",
+                    Razon = "",
+                    Albaran = ddt.Donumreg,
+                    Contrato = "",
+                    Nfacsus = "",
+                    Fpag = "",
+                    Divisa = "EUR",
+                    Sumbruto = 0.0,
+                    Sumnetos = fattura.Sumnetos,
+                    Cargos = 0.0,
+                    Descuen = fattura.Descuen,
+                    Baseimp1 = (double?)fattura.Dototimp ?? 0.0,
+                    Tipoimp1 = "VAT",
+                    Tasaimp1 = 0.0,
+                    Impimp1 = 0.0,
+                    Baseimp2 = "",
+                    Tipoimp2 = "",
+                    Tasaimp2 = "",
+                    Impimp2 = "",
+                    Baseimp3 = "",
+                    Tipoimp3 = "",
+                    Tasaimp3 = "",
+                    Impimp3 = "",
+                    Baseimp4 = "",
+                    Tipoimp4 = "",
+                    Tasaimp4 = "",
+                    Impimp4 = "",
+                    Baseimp5 = "",
+                    Tipoimp5 = "",
+                    Tasaimp5 = "",
+                    Impimp5 = "",
+                    Baseimp6 = "",
+                    Tipoimp6 = "",
+                    Tasaimp6 = "",
+                    Impimp6 = "",
+                    Basimpfa = 0.0,
+                    Totimp = 0.0,
+                    Total = (double?)fattura.Dototimp ?? 0.0,
+                    Vto1 = "",
+                    Impvto1 = "",
+                    Vto2 = "",
+                    Impvto2 = "",
+                    Vto3 = "",
+                    Impvto3 = "",
+                    Tpverde = "",
+                    Calif1 = "",
+                    Secuen1 = "",
+                    Tipo1 = "",
+                    Porcen1 = "",
+                    Impdes1 = "",
+                    Calif2 = "",
+                    Secuen2 = "",
+                    Tipo2 = "",
+                    Porcen2 = "",
+                    Impdes2 = "",
+                    Calif3 = "",
+                    Secuen3 = "",
+                    Tipo3 = "",
+                    Porcen3 = "",
+                    Impdes3 = "",
+                    Calif4 = "",
+                    Secuen4 = "",
+                    Tipo4 = "",
+                    Porcen4 = "",
+                    Impdes4 = "",
+                    Calif5 = "",
+                    Secuen5 = "",
+                    Tipo5 = "",
+                    Porcen5 = "",
+                    Impdes5 = "",
+                    Ersocial = "",
+                    Ecalle = "",
+                    Epoblac = "",
+                    Ecp = "",
+                    Enif = "IT04418490241",
+                    Ermerca = "",
+                    Notac = "",
+                    Numrel = "",
+                    Recogida = "",
+                    Destino = "",
+                    Fechaefe = ddt.Dodatreg,
+                    Nconfrec = "",
+                    Nidenticket = "",
+                    Contacto = "",
+                    Telefono = "",
+                    Fax = "",
+                    Codprov = "",
+                    Fecalb = "",
+                    Normexen1 = "",
+                    Normexen2 = "",
+                    Normexen3 = "",
+                    Normexen4 = "",
+                    Normexen5 = "",
+                    Normexen6 = "",
+                    Fechadoc = "",
+                    Refpago = "",
+                    Origen = "",
+                    Nifii = "",
+                    Nifpe = "",
+                    Nifiv = "",
+                    Nifpr = "",
+                    Nifsu = "",
+                    Nummovi = "",
+                    Numincor = "",
+                    Impincor = "",
+                    Fentmer = "",
+                    Femimen = "",
+                    Nummen = "",
+                    Percfac = "",
+                    Fpedido = "",
+                    Codaprob = "",
+                    Numdevol = "",
+                    Fnumdevol = "",
+                    Notifdevol = "",
+                    Fnotifdevol = "",
+                    Sedesoc = "",
+                    Buque = "",
+                    Fembarque = "",
+                    Forwarder = "",
+                    Rrsocial = "",
+                    Rcalle = "",
+                    Rciudad = "",
+                    Rcp = "",
+                    Agenenif = "",
+                    Ecapsocial = "",
+                    Lugcarga = "",
+                    Fcarga = "",
+                    Lugdescarga = "",
+                    Matricula = "",
+                    Fentrega = "",
+                    Numven = "",
+                    Cpext = "",
+                    Ecpext = "",
+                    Fecfacsus = "",
+                    Epais = "",
+                    Relvto = "",
+                    Diasvto = "",
+                    Porcvto = "",
+                    Tipoimpdes1 = "",
+                    Tasaimpdes1 = "",
+                    Impimpdes1 = "",
+                    Baseimpdes1 = "",
+                    Tipoimpdes2 = "",
+                    Tasaimpdes2 = "",
+                    Impimpdes2 = "",
+                    Baseimpdes2 = "",
+                    Tipoimpdes3 = "",
+                    Tasaimpdes3 = "",
+                    Impimpdes3 = "",
+                    Baseimpdes3 = "",
+                    Tipoimpdes4 = "",
+                    Tasaimpdes4 = "",
+                    Impimpdes4 = "",
+                    Baseimpdes4 = "",
+                    Tipoimpdes5 = "",
+                    Tasaimpdes5 = "",
+                    Impimpdes5 = "",
+                    Baseimpdes5 = "",
+                    Paisby = "",
+                    Regcritcaja = "",
+                    Taxcat = "",
+                    Taxcat1 = "",
+                    Taxcat2 = "",
+                    Taxcat3 = "",
+                    Taxcat4 = "",
+                    Taxcat5 = "",
+                    Taxcat6 = "",
+                    Autorizdev = "",
+                    Numpedvend = "",
+                    Fectax = "",
+                    Prodproducto = "",
+                    Regprodproducto = ""
+                };
+
+
+                if (queryResult == null)
                 {
                     _logger.LogWarning($"Testata non trovata per il numero fattura: {donumdocTrimmed}");
                     return NotFound("Fattura non trovata");
                 }
 
-                var fechaFormatted = query.Fecha.ToString();
+                var fechaFormatted = queryResult.Fecha.ToString();
 
                 var csv = new StringBuilder();
                 //csv.AppendLine("DOSERIAL,NUMFAC,VENDEDOR,EMISOR,COBRADOR,COMPRADO,DEPTO,RECEPTOR,CLIENTE,PAGADOR,PEDIDO,FECHA,NODO,FUNCION,RSOCIAL,CALLE,CIUDAD,CP,NIF,RAZON,ALBARAN,CONTRATO,NFACSUS,FPAG,DIVISA,SUMBRUTO,SUMNETOS,CARGOS,DESCUEN,BASEIMP1,TIPOIMP1,TASAIMP1,IMPIMP1,BASEIMP2,TIPOIMP2,TASAIMP2,IMPIMP2,BASEIMP3,TIPOIMP3,TASAIMP3,IMPIMP3,BASEIMP4,TIPOIMP4,TASAIMP4,IMPIMP4,BASEIMP5,TIPOIMP5,TASAIMP5,IMPIMP5,BASEIMP6,TIPOIMP6,TASAIMP6,IMPIMP6,BASIMPFA,TOTIMP,TOTAL,VTO1,IMPVTO1,VTO2,IMPVTO2,VTO3,IMPVTO3,TPVERDE,CALIF1,SECUEN1,TIPO1,PORCEN1,IMPDES1,CALIF2,SECUEN2,TIPO2,PORCEN2,IMPDES2,CALIF3,SECUEN3,TIPO3,PORCEN3,IMPDES3,CALIF4,SECUEN4,TIPO4,PORCEN4,IMPDES4,CALIF5,SECUEN5,TIPO5,PORCEN5,IMPDES5,ERSOCIAL,ECALLE,EPOBLAC,ECP,ENIF,ERMERCA,NOTAC,NUMREL,RECOGIDA,DESTINO,FECHAEFE,NCONFREC,NIDENTICKET,CONTACTO,TELEFONO,FAX,CODPROV,FECALB,NORMEXEN1,NORMEXEN2,NORMEXEN3,NORMEXEN4,NORMEXEN5,NORMEXEN6,FECHADOC,REFPAGO,ORIGEN,NIFII,NIFPE,NIFIV,NIFPR,NIFSU,NUMMOVI,NUMINCOR,IMPINCOR,FENTMER,FEMIMEN,NUMMEN,PERCFAC,FPEDIDO,CODAPROB,NUMDEVOL,FNUMDEVOL,NOTIFDEVOL,FNOTIFDEVOL,SEDESOC,BUQUE,FEMBARQUE,FORWARDER,RRSOCIAL,RCALLE,RCIUDAD,RCP,AGENENIF,ECAPSOCIAL,LUGCARGA,FCARGA,LUGDESCARGA,MATRICULA,FENTREGA,NUMVEN,CPEXT,ECPEXT,FECFACSUS,EPAIS,RELVTO,DIASVTO,PORCVTO,TIPOIMPDES1,TASAIMPDES1,IMPIMPDES1,BASEIMPDES1,TIPOIMPDES2,TASAIMPDES2,IMPIMPDES2,BASEIMPDES2,TIPOIMPDES3,TASAIMPDES3,IMPIMPDES3,BASEIMPDES3,TIPOIMPDES4,TASAIMPDES4,IMPIMPDES4,BASEIMPDES4,TIPOIMPDES5,TASAIMPDES5,IMPIMPDES5,BASEIMPDES5,PAISBY,REGCRITCAJA,TAXCAT,TAXCAT1,TAXCAT2,TAXCAT3,TAXCAT4,TAXCAT5,TAXCAT6,AUTORIZDEV,NUMPEDVEND,FECTAX,PRODPRODUCTO,REGPRODPRODUCTO");
-                csv.AppendLine($"{query.Doserial}; {query.Numfac}; {query.Vendedor}; {query.Emisor}; {query.Cobrador}; {query.Comprado}; {query.Depto}; {query.Receptor}; {query.Cliente}; {query.Pagador}; {query.Pedido}; {fechaFormatted}; {query.Nodo}; {query.Funcion}; {query.Rsocial}; {query.Calle}; {query.Ciudad}; {query.Cp}; {query.Nif}; {query.Razon}; {query.Albaran}; {query.Contrato}; {query.Nfacsus}; {query.Fpag}; {query.Divisa}; {query.Sumbruto}; {query.Sumnetos}; {query.Cargos}; {query.Descuen}; {query.Baseimp1}; {query.Tipoimp1}; {query.Tasaimp1}; {query.Impimp1}; {query.Baseimp2}; {query.Tipoimp2}; {query.Tasaimp2}; {query.Impimp2}; {query.Baseimp3}; {query.Tipoimp3}; {query.Tasaimp3}; {query.Impimp3}; {query.Baseimp4}; {query.Tipoimp4}; {query.Tasaimp4}; {query.Impimp4}; {query.Baseimp5}; {query.Tipoimp5}; {query.Tasaimp5}; {query.Impimp5}; {query.Baseimp6}; {query.Tipoimp6}; {query.Tasaimp6}; {query.Impimp6}; {query.Basimpfa}; {query.Totimp}; {query.Total}; {query.Vto1}; {query.Impvto1}; {query.Vto2}; {query.Impvto2}; {query.Vto3}; {query.Impvto3}; {query.Tpverde}; {query.Calif1}; {query.Secuen1}; {query.Tipo1}; {query.Porcen1}; {query.Impdes1}; {query.Calif2}; {query.Secuen2}; {query.Tipo2}; {query.Porcen2}; {query.Impdes2}; {query.Calif3}; {query.Secuen3}; {query.Tipo3}; {query.Porcen3}; {query.Impdes3}; {query.Calif4}; {query.Secuen4}; {query.Tipo4}; {query.Porcen4}; {query.Impdes4}; {query.Calif5}; {query.Secuen5}; {query.Tipo5}; {query.Porcen5}; {query.Impdes5}; {query.Ersocial}; {query.Ecalle}; {query.Epoblac}; {query.Ecp}; {query.Enif}; {query.Ermerca}; {query.Notac}; {query.Numrel}; {query.Recogida}; {query.Destino}; {query.Fechaefe}; {query.Nconfrec}; {query.Nidenticket}; {query.Contacto}; {query.Telefono}; {query.Fax}; {query.Codprov}; {query.Fecalb}; {query.Normexen1}; {query.Normexen2}; {query.Normexen3}; {query.Normexen4}; {query.Normexen5}; {query.Normexen6}; {query.Fechadoc}; {query.Refpago}; {query.Origen}; {query.Nifii}; {query.Nifpe}; {query.Nifiv}; {query.Nifpr}; {query.Nifsu}; {query.Nummovi}; {query.Numincor}; {query.Impincor}; {query.Fentmer}; {query.Femimen}; {query.Nummen}; {query.Percfac}; {query.Fpedido}; {query.Codaprob}; {query.Numdevol}; {query.Fnumdevol}; {query.Notifdevol}; {query.Fnotifdevol}; {query.Sedesoc}; {query.Buque}; {query.Fembarque}; {query.Forwarder}; {query.Rrsocial}; {query.Rcalle}; {query.Rciudad}; {query.Rcp}; {query.Agenenif}; {query.Ecapsocial}; {query.Lugcarga}; {query.Fcarga}; {query.Lugdescarga}; {query.Matricula}; {query.Fentrega}; {query.Numven}; {query.Cpext}; {query.Ecpext}; {query.Fecfacsus}; {query.Epais}; {query.Relvto}; {query.Diasvto}; {query.Porcvto}; {query.Tipoimpdes1}; {query.Tasaimpdes1}; {query.Impimpdes1}; {query.Baseimpdes1}; {query.Tipoimpdes2}; {query.Tasaimpdes2}; {query.Impimpdes2}; {query.Baseimpdes2}; {query.Tipoimpdes3}; {query.Tasaimpdes3}; {query.Impimpdes3}; {query.Baseimpdes3}; {query.Tipoimpdes4}; {query.Tasaimpdes4}; {query.Impimpdes4}; {query.Baseimpdes4}; {query.Tipoimpdes5}; {query.Tasaimpdes5}; {query.Impimpdes5}; {query.Baseimpdes5}; {query.Paisby}; {query.Regcritcaja}; {query.Taxcat}; {query.Taxcat1}; {query.Taxcat2}; {query.Taxcat3}; {query.Taxcat4}; {query.Taxcat5}; {query.Taxcat6}; {query.Autorizdev}; {query.Numpedvend}; {query.Fectax}; {query.Prodproducto}; {query.Regprodproducto}");
+                csv.AppendLine($"{queryResult.Doserial}; {queryResult.Numfac}; {queryResult.Vendedor}; {queryResult.Emisor}; {queryResult.Cobrador}; {queryResult.Comprado}; {queryResult.Depto}; {queryResult.Receptor}; {queryResult.Cliente}; {queryResult.Pagador}; {queryResult.Pedido}; {fechaFormatted}; {queryResult.Nodo}; {queryResult.Funcion}; {queryResult.Rsocial}; {queryResult.Calle}; {queryResult.Ciudad}; {queryResult.Cp}; {queryResult.Nif}; {queryResult.Razon}; {queryResult.Albaran}; {queryResult.Contrato}; {queryResult.Nfacsus}; {queryResult.Fpag}; {queryResult.Divisa}; {queryResult.Sumbruto}; {queryResult.Sumnetos}; {queryResult.Cargos}; {queryResult.Descuen}; {queryResult.Baseimp1}; {queryResult.Tipoimp1}; {queryResult.Tasaimp1}; {queryResult.Impimp1}; {queryResult.Baseimp2}; {queryResult.Tipoimp2}; {queryResult.Tasaimp2}; {queryResult.Impimp2}; {queryResult.Baseimp3}; {queryResult.Tipoimp3}; {queryResult.Tasaimp3}; {queryResult.Impimp3}; {queryResult.Baseimp4}; {queryResult.Tipoimp4}; {queryResult.Tasaimp4}; {queryResult.Impimp4}; {queryResult.Baseimp5}; {queryResult.Tipoimp5}; {queryResult.Tasaimp5}; {queryResult.Impimp5}; {queryResult.Baseimp6}; {queryResult.Tipoimp6}; {queryResult.Tasaimp6}; {queryResult.Impimp6}; {queryResult.Basimpfa}; {queryResult.Totimp}; {queryResult.Total}; {queryResult.Vto1}; {queryResult.Impvto1}; {queryResult.Vto2}; {queryResult.Impvto2}; {queryResult.Vto3}; {queryResult.Impvto3}; {queryResult.Tpverde}; {queryResult.Calif1}; {queryResult.Secuen1}; {queryResult.Tipo1}; {queryResult.Porcen1}; {queryResult.Impdes1}; {queryResult.Calif2}; {queryResult.Secuen2}; {queryResult.Tipo2}; {queryResult.Porcen2}; {queryResult.Impdes2}; {queryResult.Calif3}; {queryResult.Secuen3}; {queryResult.Tipo3}; {queryResult.Porcen3}; {queryResult.Impdes3}; {queryResult.Calif4}; {queryResult.Secuen4}; {queryResult.Tipo4}; {queryResult.Porcen4}; {queryResult.Impdes4}; {queryResult.Calif5}; {queryResult.Secuen5}; {queryResult.Tipo5}; {queryResult.Porcen5}; {queryResult.Impdes5}; {queryResult.Ersocial}; {queryResult.Ecalle}; {queryResult.Epoblac}; {queryResult.Ecp}; {queryResult.Enif}; {queryResult.Ermerca}; {queryResult.Notac}; {queryResult.Numrel}; {queryResult.Recogida}; {queryResult.Destino}; {queryResult.Fechaefe}; {queryResult.Nconfrec}; {queryResult.Nidenticket}; {queryResult.Contacto}; {queryResult.Telefono}; {queryResult.Fax}; {queryResult.Codprov}; {queryResult.Fecalb}; {queryResult.Normexen1}; {queryResult.Normexen2}; {queryResult.Normexen3}; {queryResult.Normexen4}; {queryResult.Normexen5}; {queryResult.Normexen6}; {queryResult.Fechadoc}; {queryResult.Refpago}; {queryResult.Origen}; {queryResult.Nifii}; {queryResult.Nifpe}; {queryResult.Nifiv}; {queryResult.Nifpr}; {queryResult.Nifsu}; {queryResult.Nummovi}; {queryResult.Numincor}; {queryResult.Impincor}; {queryResult.Fentmer}; {queryResult.Femimen}; {queryResult.Nummen}; {queryResult.Percfac}; {queryResult.Fpedido}; {queryResult.Codaprob}; {queryResult.Numdevol}; {queryResult.Fnumdevol}; {queryResult.Notifdevol}; {queryResult.Fnotifdevol}; {queryResult.Sedesoc}; {queryResult.Buque}; {queryResult.Fembarque}; {queryResult.Forwarder}; {queryResult.Rrsocial}; {queryResult.Rcalle}; {queryResult.Rciudad}; {queryResult.Rcp}; {queryResult.Agenenif}; {queryResult.Ecapsocial}; {queryResult.Lugcarga}; {queryResult.Fcarga}; {queryResult.Lugdescarga}; {queryResult.Matricula}; {queryResult.Fentrega}; {queryResult.Numven}; {queryResult.Cpext}; {queryResult.Ecpext}; {queryResult.Fecfacsus}; {queryResult.Epais}; {queryResult.Relvto}; {queryResult.Diasvto}; {queryResult.Porcvto}; {queryResult.Tipoimpdes1}; {queryResult.Tasaimpdes1}; {queryResult.Impimpdes1}; {queryResult.Baseimpdes1}; {queryResult.Tipoimpdes2}; {queryResult.Tasaimpdes2}; {queryResult.Impimpdes2}; {queryResult.Baseimpdes2}; {queryResult.Tipoimpdes3}; {queryResult.Tasaimpdes3}; {queryResult.Impimpdes3}; {queryResult.Baseimpdes3}; {queryResult.Tipoimpdes4}; {queryResult.Tasaimpdes4}; {queryResult.Impimpdes4}; {queryResult.Baseimpdes4}; {queryResult.Tipoimpdes5}; {queryResult.Tasaimpdes5}; {queryResult.Impimpdes5}; {queryResult.Baseimpdes5}; {queryResult.Paisby}; {queryResult.Regcritcaja}; {queryResult.Taxcat}; {queryResult.Taxcat1}; {queryResult.Taxcat2}; {queryResult.Taxcat3}; {queryResult.Taxcat4}; {queryResult.Taxcat5}; {queryResult.Taxcat6}; {queryResult.Autorizdev}; {queryResult.Numpedvend}; {queryResult.Fectax}; {queryResult.Prodproducto}; {queryResult.Regprodproducto}");
 
 
                 var fileBytes = Encoding.UTF8.GetBytes(csv.ToString());
-                return File(fileBytes, "text/csv", $"TestataFattura_{donumdocTrimmed}.csv");
+                return File(fileBytes, "text/plain", $"TestataFattura_{donumdocTrimmed}.txt");
             }
             catch (Exception ex)
             {
@@ -486,7 +540,7 @@ namespace Fatturazione.Controllers
                 }
 
                 var fileBytes = Encoding.UTF8.GetBytes(csv.ToString());
-                return File(fileBytes, "text/csv", $"RigheFattura_{donumdocTrimmed}.csv");
+                return File(fileBytes, "text/plain", $"RigheFattura_{donumdocTrimmed}.txt");
             }
             catch (Exception ex)
             {
