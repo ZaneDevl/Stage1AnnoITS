@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class FatturaDataService {
     private donumdoc: string = '';
+    private year: number | null = null;
   
   constructor() {}
 
@@ -14,5 +15,13 @@ export class FatturaDataService {
 
   setDonumdoc(value: string): void {
     this.donumdoc = value;
+  }
+
+  getYear(): number | null  {
+    return this.year
+  }
+
+  setYear(value: number | null): void {
+    this.year = value;
   }
 }

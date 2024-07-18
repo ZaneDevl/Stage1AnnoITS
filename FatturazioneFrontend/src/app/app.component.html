@@ -1,6 +1,7 @@
 <div style="text-align: center;">
   <h1>Inserisci il numero di fattura</h1>
   <input [(ngModel)]="donumdoc" placeholder="Numero fattura">
+  <input [(ngModel)]="year" type="number" placeholder="Anno del documento di fatturazione">
   <button (click)="fetchFattura()">Ottieni dati di fatturazione</button>
 
   <mat-spinner *ngIf="isLoading" style="margin: 20px auto;"></mat-spinner>

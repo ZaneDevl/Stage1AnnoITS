@@ -7,6 +7,12 @@
         placeholder="Numero di fattura"
         required
         />
+        <input
+        type="number"
+        [(ngModel)]="year"
+        name="year"
+        placeholder="Anno documento fattura"
+        >
         <button type="submit">Cerca</button>
     </form>
     <p *ngIf="error">{{error}}</p>

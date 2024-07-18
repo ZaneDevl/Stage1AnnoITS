@@ -19,6 +19,7 @@ export class AppComponent {
   title = 'FattureApp';
   fattura: any = null;
   donumdoc: string = '';
+  year: number | null = null;
   error: string = '';
   notification: string = '';
   isLoading: boolean = false;
@@ -36,12 +37,15 @@ export class AppComponent {
     }
     
     this.fatturaDataService.setDonumdoc(this.donumdoc);
+    this.fatturaDataService.setYear(this.year);
     
     this.isLoading=true;
     this.notification='';
     this.error = '';
 
-    this.fatturaService.getFattura(this.donumdoc).subscribe(
+    const yearParam = this.year !== null ? this.year : undefined;
+
+    this.fatturaService.getFattura(this.donumdoc, yearParam).subscribe(
       (data) => {
         this.isLoading = false;
         if (!data) {

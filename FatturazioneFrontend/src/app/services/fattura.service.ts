@@ -12,15 +12,23 @@ export class FatturaService {
 
   constructor(private http: HttpClient) {}
 
-  getFattura(donumdoc: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/Fattura?donumdoc=${donumdoc}`)
+  getFattura(donumdoc: string, year?: number): Observable<any> {
+    let params = new HttpParams().set('donumdoc', donumdoc);
+    if (year) {
+      params = params.set('year', year.toString());
+    }
+    return this.http.get<any>(`${this.apiUrl}/Fattura`, { params })
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  generaFileFatturazione(donumdoc: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/fatturazione/GeneraFileFatturazione`, { params: new HttpParams().set('donumdoc', donumdoc) })
+  generaFileFatturazione(donumdoc: string, year?: number): Observable<any> {
+    let params = new HttpParams().set('donumdoc', donumdoc)
+    if (year !== undefined) {
+      params = params.set('year', year.toString())
+    }
+    return this.http.get<any>(`${this.apiUrl}/Fatturazione/GeneraFileFatturazione`, { params })
     .pipe(
       catchError(this.handleError)
     );

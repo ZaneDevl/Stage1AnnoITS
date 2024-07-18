@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Fatturazione.Controllers;
 using Fatturazione.Exceptions;
 using System.Linq.Expressions;
+using NodaTime;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Fatturazione.Controllers
@@ -30,7 +32,7 @@ namespace Fatturazione.Controllers
 
 
         [HttpGet("GeneraFileFatturazione")]
-        public async Task<IActionResult> GeneraFileFatturazione([FromQuery] string donumdoc)
+        public async Task<IActionResult> GeneraFileFatturazione([FromQuery] string donumdoc, [FromQuery] int? year = null)
         {
             try
             {
@@ -47,13 +49,53 @@ namespace Fatturazione.Controllers
                 var fatturaLogger = LoggerFactory.Create(builder => builder.AddConsole()).CreateLogger<FatturaController>();
                 var fatturaController = new FatturaController(_context, fatturaLogger);
 
+                var fatture = await _context.BaDocumeM005s
+                    .Where(doc => doc.Dotipdoc == "FAT" && doc.Doflcicl == "VEN" && doc.Docodcau == "FATVENINTR" && doc.Donumdoc.ToUpper() == donumdocTrimmed)
+                    .Select(doc => new 
+                    {
+                        doc.Doserial,
+                        doc.Donumdoc,
+                        doc.Dodatreg
+                    })
+                    .ToListAsync();
 
-                var testataFileResult = await fatturaController.GeneraTestata(donumdocTrimmed) as FileContentResult;
-                if (testataFileResult == null || testataFileResult.FileContents == null)
+                if (!fatture.Any())
+                {
+                    return NotFound("Fattura non trovata");
+                }
+
+                if (fatture.Count > 1)
+                {
+                    if (year == null)
+                    {
+                        _logger.LogError("Occorre specificare l'anno del documento per identificare la fattura corretta");
+                        return BadRequest("Occorre specificare l'anno del documento per identificare la fattura corretta");
+                    }
+
+                    fatture = fatture.Where(f => f.Dodatreg.HasValue && f.Dodatreg.Value.Year == year.Value).ToList();
+
+                    if (!fatture.Any())
+                    {
+                        return NotFound("Fattura non trovata per l'anno specificato");
+                    }
+                }
+
+                IActionResult testataFileResult;
+                if (year.HasValue)
+                {
+                    testataFileResult = await fatturaController.GeneraTestata(donumdocTrimmed, year.Value);
+                }
+                else
+                {
+                    testataFileResult = await fatturaController.GeneraTestata(donumdocTrimmed);
+                }
+
+                if (!(testataFileResult is FileContentResult testataFileContentResult))
                 {
                     return StatusCode(500, "Errore nella generazione del file di testata");
                 }
-                var testataFileBytes = testataFileResult.FileContents;
+
+                var testataFileBytes = testataFileContentResult.FileContents;
                 var testataFileName = $"CABFAC.txt";
 
 
@@ -62,7 +104,7 @@ namespace Fatturazione.Controllers
                 {
                     return StatusCode(500, "Errore nella generazione del file di riga");
                 }
-                var righeFileBytes = righeFileResult?.FileContents;
+                var righeFileBytes = righeFileResult.FileContents;
                 var righeFileName = $"LINFAC.txt";
 
 

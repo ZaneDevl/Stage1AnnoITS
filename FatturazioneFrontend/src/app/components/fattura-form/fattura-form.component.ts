@@ -11,15 +11,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class FatturaFormComponent {
   fatturaNum: string = '';
+  year: number | null = null;
   error: string = '';
-  @Output() submitFattura = new EventEmitter<string>();
+  @Output() submitFattura = new EventEmitter<{ fatturaNum: string, year: number | null }>();
+
 
   handleSubmit() {
     if (!this.fatturaNum) {
       this.error = 'Inserisci un numero di fattura';
     } else {
       this.error = '';
-      this.submitFattura.emit(this.fatturaNum)
+      this.submitFattura.emit({ fatturaNum: this.fatturaNum, year: this.year});
     }
   }
 }

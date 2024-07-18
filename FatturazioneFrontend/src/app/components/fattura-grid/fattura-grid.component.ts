@@ -12,6 +12,7 @@ export class FatturaGridComponent {
   displayedColumns: string[] = ['desc', 'cfact', 'preciob', 'precion', 'neto'];
   testataFilePath: string = '';
   righeFilePath: string = '';
+  year: number | null = null;
 
   constructor(
     private fatturaService: FatturaService,
@@ -20,12 +21,15 @@ export class FatturaGridComponent {
 
   onGenerateFileFatturazione() {
     const donumdoc = this.fatturaDataService.getDonumdoc();
+    const year = this.fatturaDataService.getYear();
     if (!donumdoc.trim()) {
       alert("Inserisci un numero di fattura valido.");
       return;
     }
 
-    this.fatturaService.generaFileFatturazione(donumdoc).subscribe(
+    const yearParam = year !== null ? year : undefined;
+
+    this.fatturaService.generaFileFatturazione(donumdoc, yearParam).subscribe(
       (response: any) => {
         console.log("Risposta del backend:", response)
         if (response && response.testataFilePath && response.righeFilePath) {
@@ -40,12 +44,27 @@ export class FatturaGridComponent {
       },
       (error: any) => {
         console.error("Errore durante la generazione dei file di fatturazione:", error);
-        if (error.status === 409) {
+        if (error.status === 400) {
+          if (error.error === "Occorre specificare l'anno del documento per generare il documento") {
+          alert ("Per generare il file di questa fattura occorre specificare anche l'anno di fatturazione.");
+        } else {
+          alert("Errore durante la generazione dei file di fatturazione: " + error.error);
+        } 
+      } else if (error.status === 409) {
           alert("Si è verificato un errore durante la generazione dei file di fatturazione: Non è possibile generare file duplicati. Per favore, riprova più tardi.");
         } else {
           alert("Si è verificato un errore durante la generazione dei file di fatturazione. Per favore, riprova più tardi.");
         }
       }
     );
+  }
+
+  updateDonumdoc(value: string) {
+    this.fatturaDataService.setDonumdoc(value);
+  }
+
+  updateYear(value: number | null) {
+    this.fatturaDataService.setYear(value);
+    this.year = value;
   }
 }
